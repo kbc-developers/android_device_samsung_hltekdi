@@ -23,6 +23,11 @@ DEVICE_PACKAGE_OVERLAYS += device/samsung/hltekdi/overlay
 ## common overlays
 DEVICE_PACKAGE_OVERLAYS += device/samsung/hlte-common/overlay-cdma
 
+# KBC recovery
+LOCAL_PATH := device/samsung/hltekdi
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/sbin/recovery-prepprocess:root/sbin/recovery-prepprocess
+
 # Default Locale
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.locale.language=ja \
