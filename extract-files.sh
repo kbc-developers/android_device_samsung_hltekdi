@@ -2,6 +2,6 @@
 
 set -e
 
-export DEVICE=hltespr
+export DEVICE=hltekdi
 export VENDOR=samsung
 ./../hlte-common/extract-files.sh $@

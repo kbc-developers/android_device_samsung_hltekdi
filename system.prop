@@ -1,11 +1,11 @@
-# system.prop for SPH-L720
+# system.prop for SCL22
 #
 
 # cannot take spaces
 rild.libargs=-d /dev/smd0
 
-ro.cdma.home.operator.numeric=310120
-ro.cdma.home.operator.alpha=Sprint
+ro.cdma.home.operator.numeric=44054
+ro.cdma.home.operator.alpha=KDDI
 ro.gps.set_privacy=1
 ro.telephony.default_network=8
 telephony.lteOnCdmaDevice=1

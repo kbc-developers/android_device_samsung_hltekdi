@@ -24,11 +24,11 @@
 -include device/samsung/hlte-common/BoardConfigCommon.mk
 
 # inherit from the proprietary version
--include vendor/samsung/hltespr/BoardConfigVendor.mk
+-include vendor/samsung/hltekdi/BoardConfigVendor.mk
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := hltespr
+TARGET_OTA_ASSERT_DEVICE := hltekdi
 
 # Kernel
-TARGET_KERNEL_VARIANT_CONFIG    := msm8974_sec_hltespr_defconfig
+TARGET_KERNEL_VARIANT_CONFIG    := msm8974_sec_hltekdi_defconfig
 
