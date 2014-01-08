@@ -32,3 +32,5 @@ TARGET_OTA_ASSERT_DEVICE := hltekdi
 # Kernel
 TARGET_KERNEL_VARIANT_CONFIG    := msm8974_sec_hltekdi_defconfig
 
+# Recovery
+BOARD_RECOVERY_SWIPE := true
