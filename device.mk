@@ -23,8 +23,10 @@ DEVICE_PACKAGE_OVERLAYS += device/samsung/hltekdi/overlay
 ## common overlays
 DEVICE_PACKAGE_OVERLAYS += device/samsung/hlte-common/overlay-cdma
 
-# KBC recovery
+# Local Path
 LOCAL_PATH := device/samsung/hltekdi
+
+# Init Files
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/sbin/recovery-prepprocess:root/sbin/recovery-prepprocess
 
