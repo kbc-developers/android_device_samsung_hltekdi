@@ -28,7 +28,10 @@ LOCAL_PATH := device/samsung/hltekdi
 
 # Init Files
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/sbin/recovery-prepprocess:root/sbin/recovery-prepprocess
+    $(LOCAL_PATH)/rootdir/sbin/recovery-prepprocess:root/sbin/recovery-prepprocess \
+    $(LOCAL_PATH)/rootdir/sbin/felica_init.sh:root/sbin/felica_init.sh \
+    $(LOCAL_PATH)/rootdir/sbin/setpropex:root/sbin/setpropex \
+    $(LOCAL_PATH)/rootdir/init.carrier.rc:root/init.carrier.rc
 
 # Default Locale
 PRODUCT_PROPERTY_OVERRIDES += \
