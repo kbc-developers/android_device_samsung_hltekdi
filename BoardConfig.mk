@@ -27,7 +27,7 @@
 -include vendor/samsung/hltekdi/BoardConfigVendor.mk
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := SCL22
+TARGET_OTA_ASSERT_DEVICE := SCL22,hltekdi
 
 # Kernel
 TARGET_KERNEL_VARIANT_CONFIG := msm8974_sec_hltekdi_defconfig
