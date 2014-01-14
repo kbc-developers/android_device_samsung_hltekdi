@@ -23,7 +23,10 @@ DEVICE_PACKAGE_OVERLAYS += device/samsung/hltekdi/overlay
 ## common overlays
 DEVICE_PACKAGE_OVERLAYS += device/samsung/hlte-common/overlay-cdma
 
-# AOJP common
+# AOJP Recovery
+$(call inherit-product-if-exists, bootable/recovery/etc/aojp.mk)
+
+# AOJP Common
 $(call inherit-product-if-exists, vendor/aojp/config/aojp.mk)
 
 # Local Path
