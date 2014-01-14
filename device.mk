@@ -23,14 +23,14 @@ DEVICE_PACKAGE_OVERLAYS += device/samsung/hltekdi/overlay
 ## common overlays
 DEVICE_PACKAGE_OVERLAYS += device/samsung/hlte-common/overlay-cdma
 
+# AOJP common
+$(call inherit-product-if-exists, vendor/aojp/config/aojp.mk)
+
 # Local Path
 LOCAL_PATH := device/samsung/hltekdi
 
 # Init Files
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/sbin/recovery-prepprocess:root/sbin/recovery-prepprocess \
-    $(LOCAL_PATH)/rootdir/sbin/felica_init.sh:root/sbin/felica_init.sh \
-    $(LOCAL_PATH)/rootdir/sbin/setpropex:root/sbin/setpropex \
     $(LOCAL_PATH)/rootdir/init.carrier.rc:root/init.carrier.rc
 
 # Default Locale
