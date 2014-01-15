@@ -30,7 +30,7 @@
 TARGET_OTA_ASSERT_DEVICE := SCL22,hltekdi
 
 # Kernel
-TARGET_KERNEL_VARIANT_CONFIG := msm8974_sec_hltekdi_defconfig
+TARGET_KERNEL_VARIANT_CONFIG := kbc_scl22_aosp_defconfig
 TARGET_KERNEL_DTS_FILES := msm8974-sec-hltejpn
 
 # Recovery
