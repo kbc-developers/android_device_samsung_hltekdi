@@ -30,10 +30,5 @@ LOCAL_PATH := device/samsung/hltekdi
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init.carrier.rc:root/init.carrier.rc
 
-# Default Locale
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.locale.language=ja \
-    ro.product.locale.region=JP
-
 # Inherit from hlte-common
 $(call inherit-product, device/samsung/hlte-common/hlte-common.mk)
