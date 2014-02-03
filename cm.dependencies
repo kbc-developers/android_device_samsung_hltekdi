@@ -9,7 +9,7 @@
   },
   {
     "repository": "android_device_samsung_hlte-common",
-    "target_path": "device/samsung/hlte-common"
+    "target_path": "device/samsung/hlte"
   },
   {
     "repository": "android_kernel_samsung_hlte",
@@ -23,5 +23,13 @@
   {
     "repository": "proprietary_vendor_samsung",
     "target_path": "vendor/samsung"
+  },
+  {
+    "repository": "android_hardware_qcom_display-caf-new",
+    "target_path": "hardware/qcom/display-caf-new"
+  },
+  {
+    "repository": "android_hardware_qcom_media-caf-new",
+    "target_path": "hardware/qcom/media-caf-new"
   }
 ]

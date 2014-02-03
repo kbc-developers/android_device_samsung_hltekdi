@@ -31,4 +31,4 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init.carrier.rc:root/init.carrier.rc
 
 # Inherit from hlte-common
-$(call inherit-product, device/samsung/hlte-common/hlte-common.mk)
+$(call inherit-product, device/samsung/hlte/device.mk)
