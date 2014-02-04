@@ -21,7 +21,7 @@
 #
 
 # inherit from common hlte
--include device/samsung/hlte/BoardConfigCommon.mk
+-include device/samsung/hlte/BoardConfig.mk
 
 # inherit from the proprietary version
 -include vendor/samsung/hltekdi/BoardConfigVendor.mk
