@@ -4,32 +4,59 @@
 # This is a common source of Android security bugs.
 #
 
+on init
+
+#    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/framework2.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/sec_edm.jar:/system/framework/seccamera.jar:/system/framework/scrollpause.jar:/system/framework/stayrotation.jar:/system/framework/smartfaceservice.jar:/system/framework/secocsp.jar:/system/framework/abt-persistence.jar:/system/framework/sc.jar:/system/framework/oem-services.jar:/system/framework/commonimsinterface.jar
+
+# NFC
+    symlink /dev/felica_cen /dev/snfc_cen
+
+#For Absolute Persistence Partition
+    mkdir /persdata 0755 system system
+    mkdir /persdata/absolute 0750 system system
+
+    wait /dev/block/platform/msm_sdcc.1/by-name/persdata
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/persdata /persdata/absolute nosuid nodev barrier=1
+    chown system system /persdata
+    chmod 0755 /persdata
+    chown system system /persdata/absolute
+    chmod 0750 /persdata/absolute
+
+
+ on post-fs-data
+	# for felica
+    exec /sbin/felica_init.sh
+
+# JPN: For MobileTV [ISDBT] \android\device\samsung\hltekdi\init.hltekdi.rc
+#    chown system system /dev/isdbt
+#    chmod 0660 /dev/isdbt
+#    chown system system /dev/s3c-tsi
+#    chmod 0660 /dev/s3c-tsi  
+	
+# FeliCa
+    mkdir /efs/FeliCaLock 0770 system felicalock
+
+
+
+# JPN: For MobileTV [ISDBT] \android\device\samsung\jaltedcm\init.hltekdi.rc
+#    mkdir /data/atsc-mh 0775 system system
+#    mkdir /data/one-seg 0775 system system
+#    chown system system /data/atsc-mh
+#    chown system system /data/one-seg
+#    chmod 0775 /data/atsc-mh
+#    chmod 0775 /data/one-seg  
+    
+# JPN : Create folder for LongLife Mode
+#    mkdir /data/longlife 0775 system system
+#    chown system system /data/longlife
+#    chmod 0775 /data/longlife
+
+# JPN: For /efs/imei folder permission
+    chown radio radio /efs/imei
+    chmod 0775 /efs/imei 
+
+
 on boot
-# permission for Input Device(Touchkey).
-    chmod 0660 /sys/class/input/input2/enabled
-    chown system system /sys/class/input/input2/enabled
-    chown radio system /sys/class/sec/sec_touchkey/touch_sensitivity
-    chown radio system /sys/class/sec/sec_touchkey/touchkey_firm_update
-    chown system radio /sys/class/sec/sec_touchkey/glove_mode
-    chown system radio /sys/class/sec/sec_touchkey/flip_mode
-    chown system radio /sys/class/sec/sec_touchkey/boost_level
-
-# permission for Input Device(Wacom).
-    chmod 0660 /sys/class/input/input4/enabled
-    chmod system system /sys/class/input/input4/enabled
-
-# permissions for S-Pen
-    chmod 0660 /sys/class/input/input3/enabled
-    chown system system /sys/class/input/input3/enabled
-    chown system radio /sys/class/sec/sec_epen/epen_firm_update
-    chown system radio /sys/class/sec/sec_epen/epen_rotation
-    chown system radio /sys/class/sec/sec_epen/epen_hand
-    chown system radio /sys/class/sec/sec_epen/epen_reset
-    chown system radio /sys/class/sec/sec_epen/epen_reset_result
-    chown system radio /sys/class/sec/sec_epen/epen_checksum
-    chown system radio /sys/class/sec/sec_epen/epen_checksum_result
-    chown system radio /sys/class/sec/sec_epen/epen_saving_mode
-    chown system radio /sys/class/sec/sec_epen/boost_level
 
 # permissions for bluetooth.
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
@@ -41,43 +68,77 @@ on boot
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
 
 # bluetooth LPM
-    chmod 0660 /proc/bluetooth/sleep/lpm
+    chmod 0220 /proc/bluetooth/sleep/lpm
     chmod 0220 /proc/bluetooth/sleep/btwrite
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/lpm
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwrite
     chmod 0600 /dev/btlock
     chown bluetooth bluetooth /dev/btlock
 
-on fs
+# Permissions for InputDevices.
+    chmod 0660 /sys/class/input/input2/enabled
+    chmod 0660 /sys/class/input/input3/enabled
+    chmod 0660 /sys/class/input/input22/enabled
+    chown system system /sys/class/input/input2/enabled
+    chown system system /sys/class/input/input3/enabled
+    chown system system /sys/class/input/input22/enabled
+    chown system system /sys/class/sec/sec_touchkey/brightness
 
-# Support Preload install apks
-    mkdir /preload 0771 system system
+# Define TCP buffer sizes for various networks
+#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    setprop net.tcp.buffersize.default 4096,87380,704512,4096,16384,110208
+    setprop net.tcp.buffersize.wifi    4094,524400,1048800,4096,524400,1048800
+    setprop net.tcp.buffersize.lte     524288,1048576,2097600,524288,1048576,2097600
+    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.hspa    4092,87380,704512,4096,16384,262144
+    setprop net.tcp.buffersize.hsupa   4092,87380,704512,4096,16384,262144
+    setprop net.tcp.buffersize.hsdpa   4092,87380,704512,4096,16384,110208
+    setprop net.tcp.buffersize.hspap   4092,87380,704512,4096,16384,262144
+    setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
+    setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
+    setprop net.tcp.buffersize.1xrtt   4094,26280,64860,4096,16384,64860
+    setprop net.tcp.buffersize.evdo    4094,64860,129720,4096,64860,129720
+    setprop net.tcp.buffersize.evdo_b  4094,129720,524400,4096,129720,524400
+    setprop net.tcp.buffersize.ehrpd   4094,129720,524400,4096,129720,524400
 
-#For Absolute Persistence Partition
+# Assign TCP buffer thresholds to be ceiling value of technology maximums
+# Increased technology maximums should be reflected here.
+    write /proc/sys/net/core/rmem_max  1048576
+#    write /proc/sys/net/core/wmem_max  2097152
 
-     mkdir /persdata 0755 system system
-     mkdir /persdata/absolute 0750 system system
-
-     wait /dev/block/platform/msm_sdcc.1/by-name/persdata
-     check_fs /dev/block/platform/msm_sdcc.1/by-name/persdata ext4
-     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/persdata /persdata/absolute nosuid nodev barrier=1
-
-     chown system system /persdata
-     chmod 0755 /persdata
-     chown system system /persdata/absolute
-     chmod 0750 /persdata/absolute
+# NAT Timeout
+    write /proc/sys/net/ipv4/netfilter/ip_conntrack_tcp_timeout_established 86400
 
 # bluetooth dhcp config
 service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
     class main
- disabled
- oneshot
+    disabled
+    oneshot
 
 service iprenew_bt-pan /system/bin/dhcpcd -n
     class late_start
- disabled
- oneshot
+    disabled
+    oneshot
+	
+ # Felica
+service mfsc /system/bin/mfsc
+    class core
+    user root
+    group system
+    oneshot
+service mfdp /system/bin/mfdp
+    class core
+    user root
+    group system
+    oneshot
+         
+# JPN: For MobileTV [ISDBT] \android\device\samsung\hltekdi\init.hltekdi.rc
+#service mobileTV /system/bin/broadcastProcessObserver
+#    class main
+#    user system
+#    group system radio audio camera graphics inet net_bt net_bt_admin net_raw sdcard_rw shell
 
+	
 # service for TZPR provisioning version check app
 service scranton_RD /system/bin/scranton_RD
     class main
@@ -88,3 +149,7 @@ service scranton_RD /system/bin/scranton_RD
 # start for TZPR provisioning version check app
 on property:sys.qseecomd.enable=true
     start scranton_RD
+
+# eMMC for USB 3.0 : Changing scheduler to cfq after boot complete
+on property:sys.boot_completed=1
+    write /sys/block/mmcblk0/queue/scheduler cfq

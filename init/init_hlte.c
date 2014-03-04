@@ -85,6 +85,13 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
         property_set("ro.telephony.default_cdma_sub", "0");
         property_set("ro.cdma.home.operator.alpha", "Verizon");
         property_set("ro.cdma.home.operator.numeric", "311480");
+    } else if (strstr(bootloader, "SCL22")) {
+        /* hltekdi */
+        property_set("ro.build.fingerprint", "KDDI/SCL22/SCL22:4.3/JSS15J/SCL22KDUBML1:user/release-keys");
+        property_set("ro.build.description", "hltekdi-user 4.3 JSS15J SCL22KDUBML1 release-keys");
+        property_set("ro.product.model", "SCL22");
+        property_set("ro.product.device", "SCL22");
+        property_set("ro.telephony.ril.v3", "newDriverCallU,newDialCode");
     } else {
         /* hltexx */
         property_set("ro.build.fingerprint", "samsung/hltexx/hlte:4.3/JSS15J/N9005XXUBMH1:user/release-keys");
