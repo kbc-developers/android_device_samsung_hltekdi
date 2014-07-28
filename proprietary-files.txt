@@ -88,11 +88,11 @@ bin/rmt_storage
 lib/libatparser.so
 lib/libcordon.so
 vendor/lib/libdiag.so
-vendor/lib/libdsutils.so
+lib/libdsutils.so
 #vendor/lib/libdsi_netctrl.so
 lib/libfactoryutil.so
 vendor/lib/libidl.so
-vendor/lib/libnetmgr.so
+lib/libnetmgr.so
 lib/libomission_avoidance.so
 #vendor/lib/libqdi.so
 #vendor/lib/libqdp.so
@@ -105,7 +105,7 @@ vendor/lib/libqmi_encdec.so
 vendor/lib/libqcci_legacy.so
 vendor/lib/libqmi_client_qmux.so
 lib/libreference-ril.so
-vendor/lib/libril-qcril-hook-oem.so
+lib/libril-qcril-hook-oem.so
 lib/libsecril-client.so
 
 # Time services
@@ -137,7 +137,7 @@ etc/C13QL_s5k3l2xx_module_info.xml
 etc/C13QS_imx135_module_info.xml
 etc/D13QL_s5k3l2xx_module_info.xml
 etc/D13QS_imx135_module_info.xml
-lib/hw/camera.msm8974.so
+lib/hw/camera.msm8974.so:lib/hw/camera.vendor.msm8974.so
 lib/libTsAe.so
 lib/libTsAf.so
 lib/libTs_J_Accm.so
