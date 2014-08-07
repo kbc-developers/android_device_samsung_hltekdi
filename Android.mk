@@ -22,12 +22,6 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(BOARD_VENDOR),samsung)
-ifeq ($(TARGET_BOARD_PLATFORM),msm8974)
-
-ifneq ($(filter hltekdi,$(TARGET_DEVICE)),)
-
+ifeq ($(TARGET_DEVICE),hltekdi)
 include $(call all-subdir-makefiles,$(LOCAL_PATH))
-endif
-endif
 endif
