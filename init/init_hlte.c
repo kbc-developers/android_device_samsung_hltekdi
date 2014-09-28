@@ -60,7 +60,7 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
         property_set("ro.build.description", "hltekdi-user 4.4.2 KOT49H SCL22KDU2FNF7 release-keys");
         property_set("ro.product.model", "SCL22");
         property_set("ro.product.device", "SCL22");
-        cdma_properties("1", "311480", "KDDI");
+        cdma_properties("1", "44054", "KDDI");
     }
     /* TODO: Add KDDI MVNOs */
 
