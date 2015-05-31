@@ -20,6 +20,9 @@ TARGET_OTA_ASSERT_DEVICE := SCL22,hltekdi
 # Kernel
 TARGET_KERNEL_VARIANT_CONFIG := kbc_scl22_aosp_defconfig
 
+#workaround for Android L (selinux permissive)
+BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3F androidboot.selinux=permissive
+
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_msm
 TARGET_LIBINIT_DEFINES_FILE := device/samsung/hltekdi/init/init_hlte.c
@@ -33,6 +36,8 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 28651290624
 BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_USERIMAGES_USE_EXT4 := true
 
+# RIL
+BOARD_RIL_CLASS := ../../../device/samsung/hltekdi/ril
 
 # inherit from the proprietary version
 -include vendor/samsung/hltekdi/BoardConfigVendor.mk
