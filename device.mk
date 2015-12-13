@@ -18,6 +18,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Get non-open-source specific aspects
 $(call inherit-product-if-exists, vendor/samsung/hltekdi/hltekdi-vendor.mk)
+$(call inherit-product-if-exists, vendor/samsung/hltekdi-felica-common/felica-common-vendor.mk)
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -29,17 +30,18 @@ PRODUCT_COPY_FILES += \
 DEVICE_PACKAGE_OVERLAYS += device/samsung/hltekdi/overlay
 
 # NFC
+DEVICE_NFC_SONY=yes
+
+# Ramdisk for FeliCa
 PRODUCT_PACKAGES += \
-    nfc_nci.bcm2079x.default \
-    com.android.nfc_extras \
-    NfcNci \
-    Tag
+    init.carrier.rc \
+    init.felica.sh
 
 PRODUCT_COPY_FILES += \
-    device/samsung/hlte-common/configs/nfcee_access.xml:system/etc/nfcee_access.xml \
     $(LOCAL_PATH)/configs/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
-    $(LOCAL_PATH)/configs/libnfc-brcm-20791b04.conf:system/etc/libnfc-brcm-20791b04.conf \
-    $(LOCAL_PATH)/configs/libnfc-brcm-20791b05.conf:system/etc/libnfc-brcm-20791b05.conf
+    $(LOCAL_PATH)/configs/libnfc-nxp.conf:system/etc/libnfc-nxp.conf \
+    $(LOCAL_PATH)/configs/nfcee_access.xml:system/etc/nfcee_access.xml
 
 # Common hlte
 $(call inherit-product, device/samsung/hlte-common/hlte.mk)
+
