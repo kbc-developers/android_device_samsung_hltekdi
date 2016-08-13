@@ -24,8 +24,8 @@ TARGET_KERNEL_VARIANT_CONFIG := kbc_scl22_aosp_defconfig
 BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3F androidboot.selinux=permissive
 
 # Init
-TARGET_INIT_VENDOR_LIB := libinit_msm
-TARGET_LIBINIT_DEFINES_FILE := device/samsung/hltekdi/init/init_hlte.cpp
+TARGET_INIT_VENDOR_LIB := libinit_msm8974
+TARGET_LIBINIT_MSM8974_DEFINES_FILE := device/samsung/hltekdi/init/init_hlte.cpp
 TARGET_UNIFIED_DEVICE := true
 
 # Partitions
