@@ -37,15 +37,13 @@
 
 #include "init_msm8974.h"
 
-// internal header...
-#define ISMATCH(a, b) (!strncmp((a), (b), PROP_VALUE_MAX))
-
-void cdma_properties(char const* cdma_sub, char const* op_numeric, char const* op_alpha)
+void cdma_properties(char const *default_cdma_sub,
+        char const *operator_numeric, char const *operator_alpha)
 {
     property_set("ril.subscription.types", "NV,RUIM");
-    property_set("ro.cdma.home.operator.numeric", op_numeric);
-    property_set("ro.cdma.home.operator.alpha", op_alpha);
-    property_set("ro.telephony.default_cdma_sub", cdma_sub);
+    property_set("ro.cdma.home.operator.numeric", operator_numeric);
+    property_set("ro.cdma.home.operator.alpha", operator_alpha);
+    property_set("ro.telephony.default_cdma_sub", default_cdma_sub);
     property_set("ro.telephony.default_network", "10");
     property_set("ro.telephony.ril.config", "newDriverCallU,newDialCode");
     property_set("telephony.lteOnCdmaDevice", "1");
@@ -53,20 +51,20 @@ void cdma_properties(char const* cdma_sub, char const* op_numeric, char const* o
 
 void init_target_properties()
 {
-    char platform[PROP_VALUE_MAX];
-    int rc;
-
-
-    rc = property_get("ro.board.platform", platform);
-    if (!rc || !ISMATCH(platform, ANDROID_TARGET))
+    std::string platform = property_get("ro.board.platform");
+    if (platform != ANDROID_TARGET)
         return;
 
+    std::string bootloader = property_get("ro.bootloader");
 
-        /* hltekdi */
-        property_set("ro.build.fingerprint", "KDDI/SCL22/SCL22:5.0/LRX21V/SCL22KDU2GOH7:user/release-keys");
-        property_set("ro.build.description", "hltekdi-user 5.0 LRX21V SCL22KDU2GOH7 release-keys");
-        property_set("ro.product.model", "SCL22");
-        property_set("ro.product.device", "SCL22");
-        cdma_properties("1", "44054", "KDDI");
+    property_set("ro.build.fingerprint", "KDDI/SCL22/SCL22:5.0/LRX21V/SCL22KDU2GOH7:user/release-keys");
+    property_set("ro.build.description", "hltekdi-user 5.0 LRX21V SCL22KDU2GOH7 release-keys");
+    property_set("ro.product.model", "SCL22");
+    property_set("ro.product.device", "SCL22");
+    property_set("telephony.sms.pseudo_multipart", "1");
+    cdma_properties("1", "44054", "KDDI");
 
+    std::string device = property_get("ro.product.device");
+    INFO("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), device.c_str());
 }
+

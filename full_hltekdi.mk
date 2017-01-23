@@ -23,4 +23,4 @@ PRODUCT_NAME := full_hltekdi
 PRODUCT_DEVICE := hltekdi
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
-PRODUCT_MODEL := hltekdi
+PRODUCT_MODEL := SCL22
