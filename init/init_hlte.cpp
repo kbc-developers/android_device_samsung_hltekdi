@@ -1,5 +1,6 @@
 /*
    Copyright (c) 2013, The Linux Foundation. All rights reserved.
+   Copyright (c) 2017, The LineageOS Project. All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
@@ -28,24 +29,40 @@
  */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
 
+#include <cutils/properties.h>
 #include "vendor_init.h"
-#include "property_service.h"
 #include "log.h"
 #include "util.h"
 
 #include "init_msm8974.h"
 
-void cdma_properties(char const *default_cdma_sub,
-        char const *operator_numeric, char const *operator_alpha)
+void set_rild_libpath(char const *variant)
 {
-    property_set("ril.subscription.types", "NV,RUIM");
-    property_set("ro.cdma.home.operator.numeric", operator_numeric);
+    std::string libpath("/system/vendor/lib/libsec-ril.");
+    libpath += variant;
+    libpath += ".so";
+
+    property_override("rild.libpath", libpath.c_str());
+}
+
+void cdma_properties(char const *operator_alpha,
+        char const *operator_numeric,
+        char const *default_network,
+        char const *cdma_sub,
+        char const *rild_lib_variant)
+{
+    /* Dynamic CDMA Properties */
     property_set("ro.cdma.home.operator.alpha", operator_alpha);
-    property_set("ro.telephony.default_cdma_sub", default_cdma_sub);
-    property_set("ro.telephony.default_network", "10");
-    property_set("ro.telephony.ril.config", "newDriverCallU,newDialCode");
+    property_set("ro.cdma.home.operator.numeric", operator_numeric);
+    property_set("ro.telephony.default_network", default_network);
+    property_set("ro.telephony.default_cdma_sub", cdma_sub);
+    set_rild_libpath(rild_lib_variant);
+
+    /* Static CDMA Properties */
+    property_set("ril.subscription.types", "NV,RUIM");
     property_set("telephony.lteOnCdmaDevice", "1");
 }
 
@@ -61,8 +78,7 @@ void init_target_properties()
     property_override("ro.build.description", "hltekdi-user 5.0 LRX21V SCL22KDU2GOH7 release-keys");
     property_override("ro.product.model", "SCL22");
     property_override("ro.product.device", "SCL22");
-    property_override("telephony.sms.pseudo_multipart", "1");
-    cdma_properties("1", "44054", "KDDI");
+    cdma_properties("KDDI", "44054", "8", "1", "kdi");
 
     std::string device = property_get("ro.product.device");
     INFO("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), device.c_str());
