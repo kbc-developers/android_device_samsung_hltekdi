@@ -18,7 +18,7 @@
 TARGET_OTA_ASSERT_DEVICE := SCL22,hltekdi
 
 # Kernel
-TARGET_KERNEL_VARIANT_CONFIG := lineage_scl22_defconfig
+TARGET_KERNEL_CONFIG := lineage_scl22_defconfig
 
 #workaround for Android L (selinux permissive)
 BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x3F androidboot.selinux=permissive
