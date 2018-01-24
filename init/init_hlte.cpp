@@ -66,21 +66,32 @@ void cdma_properties(char const *operator_alpha,
     property_set("telephony.lteOnCdmaDevice", "1");
 }
 
+#define ISMATCH(a, b) (!strncmp((a), (b), PROP_VALUE_MAX))
+
 void init_target_properties()
 {
-    std::string platform = property_get("ro.board.platform");
-    if (platform != ANDROID_TARGET)
+    char platform[PROP_VALUE_MAX];
+    char bootloader[PROP_VALUE_MAX];
+    char device[PROP_VALUE_MAX];
+    char devicename[PROP_VALUE_MAX];
+    int rc;
+
+    rc = property_get("ro.board.platform", platform, NULL);
+    if (!rc || !ISMATCH(platform, ANDROID_TARGET))
         return;
 
-    std::string bootloader = property_get("ro.bootloader");
+    if (strstr(bootloader, "SCL22")) {
 
     property_override("ro.build.fingerprint", "KDDI/SCL22/SCL22:5.0/LRX21V/SCL22KDU2GOH7:user/release-keys");
     property_override("ro.build.description", "hltekdi-user 5.0 LRX21V SCL22KDU2GOH7 release-keys");
     property_override("ro.product.model", "SCL22");
     property_override("ro.product.device", "SCL22");
     cdma_properties("KDDI", "44054", "8", "1", "kdi");
+    
+    }
 
-    std::string device = property_get("ro.product.device");
-    INFO("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), device.c_str());
+    property_get("ro.product.device", device, NULL);
+    strlcpy(devicename, device, sizeof(devicename));
+    ERROR("Found bootloader id %s setting build properties for %s device\n", bootloader, devicename);
 }
 
