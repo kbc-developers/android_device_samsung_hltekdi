@@ -79,6 +79,8 @@ void init_target_properties()
     rc = property_get("ro.board.platform", platform, NULL);
     if (!rc || !ISMATCH(platform, ANDROID_TARGET))
         return;
+        
+    property_get("ro.bootloader", bootloader, NULL);
 
     if (strstr(bootloader, "SCL22")) {
 
